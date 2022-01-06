@@ -107,15 +107,22 @@ namespace SpecFlowPractice.Steps
         [When(@"user click on item's trashbin button")]
         public void WhenUserClickOnItemSTrashbinButton()
         {
+
+
+
             driver.Driver.FindElement(By.CssSelector("#product_5_25_0_0 a.cart_quantity_delete>i")).Click();
         }
 
         [Then(@"product removed from the cart")]
         public void ThenProductRemovedFromTheCart()
         {
-            Thread.Sleep(1500);
+            Thread.Sleep(1000);
+
+            WebDriverWait driverWait = new WebDriverWait(driver.Driver, TimeSpan.FromSeconds(10));
+            driverWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.CssSelector("tbody>:nth-child(2)")));
+
             int cart = driver.Driver.FindElements(By.CssSelector("tbody>tr")).Count();
-            Assert.That(cart,Is.EqualTo(1));
+            Assert.That(cart, Is.EqualTo(1));
         }
 
     }
