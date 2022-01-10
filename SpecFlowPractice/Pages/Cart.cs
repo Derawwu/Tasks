@@ -5,10 +5,6 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using SpecFlowPractice.Drivers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpecFlowPractice.Pages
 {
@@ -16,9 +12,9 @@ namespace SpecFlowPractice.Pages
     {
         private static string priceInMemory;
         private static string nameInMemory;
-        public WebDriverDriver driver { get; }
+        public WebDriverChrome driver { get; }
 
-        public Cart(WebDriverDriver driver)
+        public Cart(WebDriverChrome driver)
         {
             this.driver = driver;
         }

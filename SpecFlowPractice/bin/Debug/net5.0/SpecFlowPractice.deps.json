@@ -10,6 +10,7 @@
         "dependencies": {
           "DotNetSeleniumExtras.WaitHelpers": "3.11.0",
           "FluentAssertions": "6.2.0",
+          "Microsoft.Edge.SeleniumTools": "3.141.2",
           "Microsoft.NET.Test.Sdk": "17.0.0",
           "NUnit.ConsoleRunner": "3.13.0",
           "NUnit3TestAdapter": "4.1.0",
@@ -127,6 +128,17 @@
           "lib/netstandard1.3/Microsoft.DotNet.PlatformAbstractions.dll": {
             "assemblyVersion": "1.0.1.0",
             "fileVersion": "1.0.1.0"
+          }
+        }
+      },
+      "Microsoft.Edge.SeleniumTools/3.141.2": {
+        "dependencies": {
+          "Selenium.WebDriver": "4.1.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Edge.SeleniumTools.dll": {
+            "assemblyVersion": "3.141.2.0",
+            "fileVersion": "3.141.2.0"
           }
         }
       },
@@ -1170,6 +1182,13 @@
       "sha512": "sha512-rF92Gp5L2asYrFNf0cKNBxzzGLh1krHuj6TRDk9wdjN2qdvJLaNYOn1s9oYkMlptYX436KiEFqxhLB+I5veXvQ==",
       "path": "microsoft.dotnet.platformabstractions/1.0.3",
       "hashPath": "microsoft.dotnet.platformabstractions.1.0.3.nupkg.sha512"
+    },
+    "Microsoft.Edge.SeleniumTools/3.141.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8wEND69I0C1IBqQ/+niwYAsY+tGZH8aHU2hxXGFbdy96t90TMbuxq9sQFIPbDXn0jB9VERs1otY5iOFRB+1o6g==",
+      "path": "microsoft.edge.seleniumtools/3.141.2",
+      "hashPath": "microsoft.edge.seleniumtools.3.141.2.nupkg.sha512"
     },
     "Microsoft.Extensions.DependencyModel/1.0.3": {
       "type": "package",

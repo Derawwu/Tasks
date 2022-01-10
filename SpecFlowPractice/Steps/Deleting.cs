@@ -15,19 +15,26 @@ namespace SpecFlowPractice.Steps
     [Binding]
     public sealed class Deleting
     {
-        public WebDriverDriver driver { get; }
+        public WebDriverChrome driver { get; }
+        public WebDriverFirefox driverFirefox { get; }
 
-        public Deleting(WebDriverDriver driver)
+        public Deleting(WebDriverChrome driver, WebDriverFirefox driverFirefox)
         {
             this.driver = driver;
+            this.driverFirefox = driverFirefox;
         }
 
         [Given(@"User enters to search bar text ""(.*)"" and click on search button")]
         public void GivenUserEntersToSearchBarTextAndClickOnSearchButton(string searchRequest)
         {
             IWebElement searchTab = driver.Driver.FindElement(By.Id("search_query_top"));
+            IWebElement searchTabFirefox = driverFirefox.Driver.FindElement(By.Id("search_query_top"));
+
             searchTab.SendKeys(searchRequest);
             driver.Driver.FindElement(By.Name("submit_search")).Click();
+
+            searchTabFirefox.SendKeys(searchRequest);
+            driverFirefox.Driver.FindElement(By.Name("submit_search")).Click();
         }
 
         [Given(@"User clicks on button more for the first found product")]
@@ -37,6 +44,12 @@ namespace SpecFlowPractice.Steps
             Actions action = new Actions(driver.Driver);
             action.MoveToElement(productCard).Perform();
             driver.Driver.FindElement(By.CssSelector
+                ("li>div>div>div.button-container>a.button.lnk_view.btn.btn-default>span")).Click();
+
+            var productCardFirefox = driverFirefox.Driver.FindElement(By.CssSelector("ul.product_list.grid.row>:first-child"));
+            Actions actionFirefox = new Actions(driverFirefox.Driver);
+            actionFirefox.MoveToElement(productCardFirefox).Perform();
+            driverFirefox.Driver.FindElement(By.CssSelector
                 ("li>div>div>div.button-container>a.button.lnk_view.btn.btn-default>span")).Click();
         }
 
@@ -50,12 +63,21 @@ namespace SpecFlowPractice.Steps
             driver.Driver.FindElement(By.CssSelector($"#group_1>option[title={size}]")).Click();
 
             driver.Driver.FindElement(By.Id("color_8")).Click();
+
+            driverFirefox.Driver.FindElement(By.Id("quantity_wanted")).Clear();
+            driverFirefox.Driver.FindElement(By.Id("quantity_wanted")).SendKeys(Convert.ToString(amount));
+
+            driverFirefox.Driver.FindElement(By.Id("group_1")).Click();
+            driverFirefox.Driver.FindElement(By.CssSelector($"#group_1>option[title={size}]")).Click();
+
+            driverFirefox.Driver.FindElement(By.Id("color_8")).Click();
         }
 
         [Given(@"user click on the button ""(.*)""")]
         public void GivenUserClickOnTheButton(string button)
         {
             driver.Driver.FindElement(By.XPath($"//button[@type='submit']/span[text()='{button}']")).Click();
+            driverFirefox.Driver.FindElement(By.XPath($"//button[@type='submit']/span[text()='{button}']")).Click();
         }
 
         [Given(@"user click on button ""(.*)"" in the opened popup")]
@@ -65,6 +87,11 @@ namespace SpecFlowPractice.Steps
             driverWait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("div#layer_cart")));
 
             driver.Driver.FindElement(By.XPath($"//*[text()[contains(.,'{buttonContinue}')]]")).Click();
+
+            WebDriverWait driverWaitFirefox = new WebDriverWait(driverFirefox.Driver, TimeSpan.FromSeconds(10));
+            driverWaitFirefox.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("div#layer_cart")));
+
+            driverFirefox.Driver.FindElement(By.XPath($"//*[text()[contains(.,'{buttonContinue}')]]")).Click();
         }
 
         [Given(@"User clicks on the button more for first found product another one time")]
@@ -74,6 +101,12 @@ namespace SpecFlowPractice.Steps
             Actions action = new Actions(driver.Driver);
             action.MoveToElement(productCard).Perform();
             driver.Driver.FindElement(By.CssSelector
+                ("li>div>div>div.button-container>a.button.lnk_view.btn.btn-default>span")).Click();
+
+            var productCardFirefox = driverFirefox.Driver.FindElement(By.CssSelector("ul.product_list.grid.row>:first-child"));
+            Actions actionFirefox = new Actions(driverFirefox.Driver);
+            actionFirefox.MoveToElement(productCardFirefox).Perform();
+            driverFirefox.Driver.FindElement(By.CssSelector
                 ("li>div>div>div.button-container>a.button.lnk_view.btn.btn-default>span")).Click();
         }
 
@@ -87,12 +120,21 @@ namespace SpecFlowPractice.Steps
             driver.Driver.FindElement(By.CssSelector($"#group_1>option[title={size}]")).Click();
 
             driver.Driver.FindElement(By.Id("color_13")).Click();
+
+            driverFirefox.Driver.FindElement(By.Id("quantity_wanted")).Clear();
+            driverFirefox.Driver.FindElement(By.Id("quantity_wanted")).SendKeys(Convert.ToString(amount));
+
+            driverFirefox.Driver.FindElement(By.Id("group_1")).Click();
+            driverFirefox.Driver.FindElement(By.CssSelector($"#group_1>option[title={size}]")).Click();
+
+            driverFirefox.Driver.FindElement(By.Id("color_13")).Click();
         }
 
         [Given(@"user click on the button ""(.*)"" another one time")]
         public void GivenUserClickOnTheButtonAnotherOneTime(string button)
         {
             driver.Driver.FindElement(By.XPath($"//button[@type='submit']/span[text()='{button}']")).Click();
+            driverFirefox.Driver.FindElement(By.XPath($"//button[@type='submit']/span[text()='{button}']")).Click();
         }
 
         [Given(@"user click on the button ""(.*)"" in opened popup")]
@@ -102,27 +144,34 @@ namespace SpecFlowPractice.Steps
             driverWait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("div#layer_cart")));
 
             driver.Driver.FindElement(By.CssSelector($"a[title='{checkout}']")).Click();
+
+            WebDriverWait driverWaitFirefox = new WebDriverWait(driverFirefox.Driver, TimeSpan.FromSeconds(10));
+            driverWaitFirefox.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("div#layer_cart")));
+
+            driverFirefox.Driver.FindElement(By.CssSelector($"a[title='{checkout}']")).Click();
         }
 
         [When(@"user click on item's trashbin button")]
         public void WhenUserClickOnItemSTrashbinButton()
         {
-
-
-
             driver.Driver.FindElement(By.CssSelector("#product_5_25_0_0 a.cart_quantity_delete>i")).Click();
+            driverFirefox.Driver.FindElement(By.CssSelector("#product_5_25_0_0 a.cart_quantity_delete>i")).Click();
         }
 
         [Then(@"product removed from the cart")]
         public void ThenProductRemovedFromTheCart()
         {
-            Thread.Sleep(1000);
-
             WebDriverWait driverWait = new WebDriverWait(driver.Driver, TimeSpan.FromSeconds(10));
             driverWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.CssSelector("tbody>:nth-child(2)")));
 
             int cart = driver.Driver.FindElements(By.CssSelector("tbody>tr")).Count();
             Assert.That(cart, Is.EqualTo(1));
+
+            WebDriverWait driverWaitFirefox = new WebDriverWait(driverFirefox.Driver, TimeSpan.FromSeconds(10));
+            driverWaitFirefox.Until(ExpectedConditions.InvisibilityOfElementLocated(By.CssSelector("tbody>:nth-child(2)")));
+
+            int cartFirefox = driverFirefox.Driver.FindElements(By.CssSelector("tbody>tr")).Count();
+            Assert.That(cartFirefox, Is.EqualTo(1));
         }
 
     }

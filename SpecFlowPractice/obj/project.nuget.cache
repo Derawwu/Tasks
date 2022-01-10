@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "snAWsJslg4dDVryBEPsGa7IMoCndnK5zh9QSflBq3tF7RhUkIOLuTGPAYLz3k0eGNAxTHrQy4XyChcSgxvlPJw==",
+  "dgSpecHash": "YuM8pYvu8nIQykGrX6LYMxPnO8MgK0Da0nABLCkttjfL/1LoeXkouPGc/qnFPoYGH8SXy8xHjVQnrkVHx3rbrA==",
   "success": true,
   "projectFilePath": "C:\\Users\\shults.b\\source\\repos\\SpecFlowPractice\\SpecFlowPractice.csproj",
   "expectedPackageFiles": [
@@ -14,6 +14,7 @@
     "C:\\Users\\shults.b\\.nuget\\packages\\microsoft.codecoverage\\17.0.0\\microsoft.codecoverage.17.0.0.nupkg.sha512",
     "C:\\Users\\shults.b\\.nuget\\packages\\microsoft.csharp\\4.4.1\\microsoft.csharp.4.4.1.nupkg.sha512",
     "C:\\Users\\shults.b\\.nuget\\packages\\microsoft.dotnet.platformabstractions\\1.0.3\\microsoft.dotnet.platformabstractions.1.0.3.nupkg.sha512",
+    "C:\\Users\\shults.b\\.nuget\\packages\\microsoft.edge.seleniumtools\\3.141.2\\microsoft.edge.seleniumtools.3.141.2.nupkg.sha512",
     "C:\\Users\\shults.b\\.nuget\\packages\\microsoft.extensions.dependencymodel\\1.0.3\\microsoft.extensions.dependencymodel.1.0.3.nupkg.sha512",
     "C:\\Users\\shults.b\\.nuget\\packages\\microsoft.net.test.sdk\\17.0.0\\microsoft.net.test.sdk.17.0.0.nupkg.sha512",
     "C:\\Users\\shults.b\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
@@ -104,5 +105,16 @@
     "C:\\Users\\shults.b\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
     "C:\\Users\\shults.b\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package version outside of dependency constraint: Microsoft.Edge.SeleniumTools 3.141.2 requires Selenium.WebDriver (= 3.141.0) but version Selenium.WebDriver 4.1.0 was resolved.",
+      "libraryId": "Selenium.WebDriver",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
 }

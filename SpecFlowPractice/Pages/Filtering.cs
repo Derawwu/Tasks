@@ -9,13 +9,12 @@ namespace SpecFlowPractice.Steps
 {
     class Filtering
     {
-        public WebDriverDriver driver { get; }
+        public WebDriverChrome driver { get; }
 
-        public Filtering(WebDriverDriver driver)
+        public Filtering(WebDriverChrome driver)
         {
             this.driver = driver;
         }
-
 
 
         public void HigherPriceFirst()
