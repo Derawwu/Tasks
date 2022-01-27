@@ -1,18 +1,23 @@
 ﻿using OpenQA.Selenium;
-using SpecFlowPractice.Drivers;
 using SpecFlowPractice.Hooks;
+using SpecFlowPracticeReworked.Drivers;
 using System;
 
 namespace SpecFlowPractice.Pages
 {
-    class BasePageObject : WebDriverSettings
+    public class BasePageObject 
     {
+        protected static Hook Hook;
+        protected IWebDriver webDriver = Hook.webDriver;
+
         public void SearchBar(string searchRequest)
         {
-            var searchBar = Driver.FindElement(By.CssSelector("input.search-form__input"));
+            
+            var searchBar = webDriver.FindElement(By.CssSelector("input.search-form__input"));
             searchBar.Clear();
             searchBar.SendKeys(searchRequest);
-            Driver.FindElement(By.CssSelector("button.search-form__submit")).Click();
+            webDriver.FindElement(By.CssSelector("button.search-form__submit")).Click();
         }
+        
     }
 }

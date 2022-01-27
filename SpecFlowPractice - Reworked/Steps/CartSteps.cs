@@ -1,45 +1,39 @@
 ﻿using FluentAssertions;
-using SpecFlowPractice.Drivers;
 using SpecFlowPractice.Pages;
 using System.Collections.Generic;
 using TechTalk.SpecFlow;
+using SpecFlowPracticeReworked.Drivers;
 
 namespace SpecFlowPractice.Steps
 {
     [Binding]
-    class CartSteps
+    public sealed class CartSteps
     {
-        public WebDriverSettings Driver { get; }
-        private ProductPageObject SearchResult = new();
-        private BasePageObject BasePage = new();
-        private List<string> InfoAboutProductOnProductList = new();
-        private List<string> InfoAboutProductOnCart = new();
+        private ProductPageObject searchResult = new();
+        private BasePageObject basePage = new();
+        private List<string> infoAboutProductOnProductList = new();
+        private List<string> infoAboutProductOnCart = new();
 
-        public CartSteps(WebDriverSettings driver)
+        [Given(@"the user entered to search bar text '(.*)' and pressed button enter, after that filtering for expensive first had been chosen")]
+        public void GivenTheUserEnteredToSearchBarTextAndPressedButtonEnterAfterThatFilteringForExpensiveFirstHadBeenChosen(string searchRequest)
         {
-            this.Driver = driver;
+            basePage.SearchBar(searchRequest);
+            searchResult.Sorting();
         }
 
-        [Given(@"User entered to search bar text '(.*)' and pressed button enter, after that filtering for expensive first had been chosen")]
-        public void GivenUserEnteredToSearchBarTextAndPressedButtonEnterAfterThatFilteringForExpensiveFirstHadBeenChosen(string searchRequest)
-        {
-            BasePage.SearchBar(searchRequest);
-            SearchResult.Sorting();
-        }
-
-        [When(@"User adds product to the cart and opens cart")]
-        public void WhenUserAddsProductToTheCartAndOpensCart()
+        [When(@"the user adds product to the cart and opens cart")]
+        public void WhenTheUserAddsProductToTheCartAndOpensCart()
         {
             int productNumber = 1;
-            InfoAboutProductOnProductList = SearchResult.AddProductToCart(productNumber);
-            SearchResult.OpenCart();
+            infoAboutProductOnProductList = searchResult.AddProductToCart(productNumber);
+            searchResult.OpenCart();
         }
 
-        [Then(@"Price of product in the cart must be same as price at the product list")]
-        public void ThenPriceOfProductInTheCartMustBeSameAsPriceAtTheProductList()
+        [Then(@"the price of product in the cart must be same as price at the product list")]
+        public void ThenThePriceOfProductInTheCartMustBeSameAsPriceAtTheProductList()
         {
-            InfoAboutProductOnCart = SearchResult.InfoAboutProductAlreadyAddedToTheCart();
-            InfoAboutProductOnProductList.Should().BeEquivalentTo(InfoAboutProductOnCart);
+            infoAboutProductOnCart = searchResult.InfoAboutProductAlreadyAddedToTheCart();
+            infoAboutProductOnProductList.Should().BeEquivalentTo(infoAboutProductOnCart);
         }
     }
 }

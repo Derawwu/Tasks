@@ -1,11 +1,5 @@
 ﻿using FluentAssertions;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
-using SpecFlowPractice.Drivers;
 using SpecFlowPractice.Pages;
-using System;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowPractice.Steps
@@ -13,27 +7,20 @@ namespace SpecFlowPractice.Steps
     [Binding]
     public sealed class SearchSteps
     {
-        public WebDriverSettings Driver { get; }
-        private ProductPageObject SearchResult = new();
-        private BasePageObject BasePage = new();
-
-        public SearchSteps(WebDriverSettings driver)
-        {
-            this.Driver = driver;
-        }
+        private ProductPageObject searchResult = new();
+        private BasePageObject basePage = new();
 
         [When(@"User enters to search bar text '(.*)' and click on search button")]
         public void WhenUserEntersToSearchBarTextAndClickOnSearchButton(string searchRequest)
         {
-            BasePage.SearchBar(searchRequest);
+            basePage.SearchBar(searchRequest);
         }
 
         [Then(@"Main title text is ""(.*)""")]
         public void ThenMainTitleTextIs(string expectedResult)
         {
-            var actualResult = SearchResult.PageMainTitleText();
+            var actualResult = searchResult.PageMainTitleText();
             actualResult.Trim('«', '»').ToUpper().Should().Be(expectedResult);
         }
-
     }
 }

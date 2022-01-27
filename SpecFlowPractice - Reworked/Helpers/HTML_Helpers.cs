@@ -3,7 +3,7 @@
 
 namespace SpecFlowPractice.Helpers
 {
-    class HTML_Helpers
+    public class HTML_Helpers
     {
         public HTML_Helpers()
         {

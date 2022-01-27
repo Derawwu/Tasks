@@ -1,22 +1,26 @@
 ﻿using BoDi;
 using Microsoft.Extensions.Configuration;
 using OpenQA.Selenium;
-using SpecFlowPractice.Drivers;
 using SpecFlowPractice.Variables;
+using SpecFlowPracticeReworked.Drivers;
+using System;
 using System.IO;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowPractice.Hooks
 {
     [Binding]
-    public sealed class Hook
+    public class Hook
     {
         static ConfigSettings config;
         static string configSettingsPath = Directory.GetParent(@"../../../").FullName
             + Path.DirectorySeparatorChar + "Configuration/config.json";
 
-        public WebDriverSettings Driver = new WebDriverSettings();
-        public IWebDriver WebDriver { get; set; }
+        
+
+        public static IWebDriver webDriver { get; set; } = WebDriverSettingsSingleton.Initialize();
+
+        public IWebDriver Driver { get { return webDriver; } }
 
         private readonly IObjectContainer container;
 
@@ -27,24 +31,24 @@ namespace SpecFlowPractice.Hooks
 
         [BeforeScenario]
         public void BeforeScenario()
-        {
+        {           
             config = new ConfigSettings();
             ConfigurationBuilder builder = new();
             builder.AddJsonFile(configSettingsPath);
             IConfigurationRoot configuration = builder.Build();
             configuration.Bind(config);
-            WebDriver = this.Driver.GetDriver();
 
-            WebDriver.Manage().Window.Maximize();
-            WebDriver.Navigate().GoToUrl(config.BaseUrl);
-            container.RegisterInstanceAs(WebDriver);
+
+            webDriver.Manage().Window.Maximize();
+            webDriver.Navigate().GoToUrl(config.BaseUrl);
+            webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            container.RegisterInstanceAs(webDriver);
         }
 
         [AfterScenario]
         public void AfterScenario()
         {
-            WebDriver.Quit();
-            WebDriver.Dispose();
+            webDriver.Close();
         }
     }
 }
