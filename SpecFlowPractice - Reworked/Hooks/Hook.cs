@@ -19,12 +19,21 @@ namespace SpecFlowPractice.Hooks
         public Hook(IObjectContainer container)
         {
             this.container = container;
+
         }
 
         static ConfigSettings config;
         static string configSettingsPath = Directory.GetParent(@"../../../").FullName
             + Path.DirectorySeparatorChar + "Configuration/config.json";
         private readonly IObjectContainer container;
+
+        public void driver() { }
+
+        [BeforeTestRun]
+        public static void BeforeTestRun() 
+        {
+
+        }
 
         [BeforeScenario]
         public void BeforeScenario()
@@ -35,7 +44,6 @@ namespace SpecFlowPractice.Hooks
             IConfigurationRoot configuration = builder.Build();
             configuration.Bind(config);
 
-
             WebDriver.Manage().Window.Maximize();
             WebDriver.Navigate().GoToUrl(config.BaseUrl);
             WebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
@@ -45,7 +53,13 @@ namespace SpecFlowPractice.Hooks
         [AfterScenario]
         public void AfterScenario()
         {
-            WebDriver.Close();
+            
+        }
+
+        [AfterTestRun]
+        public static void AfterTestRun()
+        {
+            WebDriver.Quit();
         }
     }
 }
