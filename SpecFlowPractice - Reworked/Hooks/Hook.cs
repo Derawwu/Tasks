@@ -12,22 +12,19 @@ namespace SpecFlowPractice.Hooks
     [Binding]
     public class Hook
     {
-        static ConfigSettings config;
-        static string configSettingsPath = Directory.GetParent(@"../../../").FullName
-            + Path.DirectorySeparatorChar + "Configuration/config.json";
+        public static IWebDriver WebDriver { get; set; } = WebDriverSettingsSingleton.Initialize();
 
-        
-
-        public static IWebDriver webDriver { get; set; } = WebDriverSettingsSingleton.Initialize();
-
-        public IWebDriver Driver { get { return webDriver; } }
-
-        private readonly IObjectContainer container;
+        public IWebDriver Driver { get { return WebDriver; } }
 
         public Hook(IObjectContainer container)
         {
             this.container = container;
         }
+
+        static ConfigSettings config;
+        static string configSettingsPath = Directory.GetParent(@"../../../").FullName
+            + Path.DirectorySeparatorChar + "Configuration/config.json";
+        private readonly IObjectContainer container;
 
         [BeforeScenario]
         public void BeforeScenario()
@@ -39,16 +36,16 @@ namespace SpecFlowPractice.Hooks
             configuration.Bind(config);
 
 
-            webDriver.Manage().Window.Maximize();
-            webDriver.Navigate().GoToUrl(config.BaseUrl);
-            webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            container.RegisterInstanceAs(webDriver);
+            WebDriver.Manage().Window.Maximize();
+            WebDriver.Navigate().GoToUrl(config.BaseUrl);
+            WebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            container.RegisterInstanceAs(WebDriver);
         }
 
         [AfterScenario]
         public void AfterScenario()
         {
-            webDriver.Close();
+            WebDriver.Close();
         }
     }
 }

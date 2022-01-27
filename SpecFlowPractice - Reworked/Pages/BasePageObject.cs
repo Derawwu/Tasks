@@ -8,7 +8,7 @@ namespace SpecFlowPractice.Pages
     public class BasePageObject 
     {
         protected static Hook Hook;
-        protected IWebDriver webDriver = Hook.webDriver;
+        protected IWebDriver webDriver = Hook.WebDriver;
 
         public void SearchBar(string searchRequest)
         {

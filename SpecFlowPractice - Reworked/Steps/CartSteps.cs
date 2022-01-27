@@ -21,17 +21,17 @@ namespace SpecFlowPractice.Steps
             searchResult.Sorting();
         }
 
-        [When(@"the user adds product to the cart and opens cart")]
-        public void WhenTheUserAddsProductToTheCartAndOpensCart()
+        [When(@"the user adds product to the cart")]
+        public void WhenTheUserAddsProductToTheCart()
         {
             int productNumber = 1;
             infoAboutProductOnProductList = searchResult.AddProductToCart(productNumber);
-            searchResult.OpenCart();
         }
 
-        [Then(@"the price of product in the cart must be same as price at the product list")]
-        public void ThenThePriceOfProductInTheCartMustBeSameAsPriceAtTheProductList()
+        [Then(@"user opens cart and the price of product in the cart must be same as price at the product list")]
+        public void ThenUserOpensCartAndThePriceOfProductInTheCartMustBeSameAsPriceAtTheProductList()
         {
+            searchResult.OpenCart();
             infoAboutProductOnCart = searchResult.InfoAboutProductAlreadyAddedToTheCart();
             infoAboutProductOnProductList.Should().BeEquivalentTo(infoAboutProductOnCart);
         }
