@@ -46,8 +46,8 @@ namespace SpecFlowPractice.Hooks
 
             WebDriver.Manage().Window.Maximize();
             WebDriver.Navigate().GoToUrl(config.BaseUrl);
-            WebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            container.RegisterInstanceAs(WebDriver);
+            WebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+            container.RegisterInstanceAs(WebDriver,"WebDriver");
         }
 
         [AfterScenario]

@@ -8,11 +8,7 @@ namespace SpecFlowPractice.Pages
 {
     public class BasePageObject 
     {
-        protected static IObjectContainer container;
-        protected static Hook hook = new Hook(container);
-        protected IWebDriver webDriver = hook.Driver;
-
-        public void SearchBar(string searchRequest)
+        public void SearchBar(IWebDriver webDriver,string searchRequest)
         {
             var searchBar = webDriver.FindElement(By.CssSelector("input.search-form__input"));
             searchBar.Clear();
