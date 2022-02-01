@@ -17,8 +17,6 @@ namespace EntittyFrameworkCoreTests
 
         NorthwindContext _context;
 
-        private DbContextOptionsBuilder fer { get; set; }
-
         [SetUp]
         public void Setup()
         {
